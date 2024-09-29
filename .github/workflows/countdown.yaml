@@ -1,0 +1,34 @@
+name: Countdown to Tet Nguyen Dan
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  countdown:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Calculate countdown
+      id: countdown
+      run: |
+        TODAY=$(date +%s)
+        LUNAR_NEW_YEAR_DATE=$(date -d "2025-01-29" +%s)  
+        SECONDS_LEFT=$(( LUNAR_NEW_YEAR_DATE - TODAY ))
+        DAYS_LEFT=$(( SECONDS_LEFT / 86400 ))
+        echo "DAYS_LEFT=$DAYS_LEFT" >> $GITHUB_ENV
+
+    - name: Update README.md with countdown
+      run: |
+        sed -i "s/## 🎉 [0-9]\+ days left until Lunar New Year 🧧/## 🎉 $DAYS_LEFT days left until Lunar New Year 🧧/" README.md
+
+    - name: Commit countdown update
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "Update countdown: $DAYS_LEFT days left until Tet Nguyen Dan"
+        git push
