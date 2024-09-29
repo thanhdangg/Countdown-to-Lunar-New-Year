@@ -19,12 +19,22 @@ jobs:
         LUNAR_NEW_YEAR_DATE=$(date -d "2025-01-29" +%s)  
         SECONDS_LEFT=$(( LUNAR_NEW_YEAR_DATE - TODAY ))
         DAYS_LEFT=$(( SECONDS_LEFT / 86400 ))
+
+        # if today is Lunar New Year
+        if [ $SECONDS_LEFT -lt 86400 ] && [ $SECONDS_LEFT -ge 0 ]; then
+          echo "is_lunar_new_year=true" >> $GITHUB_ENV
+        else
+          echo "is_lunar_new_year=false" >> $GITHUB_ENV
+        fi
         echo "DAYS_LEFT=$DAYS_LEFT" >> $GITHUB_ENV
 
     - name: Update README.md with countdown
       run: |
-        sed -i "s/## 🎉 [0-9]\+ days left until Lunar New Year 🧧/## 🎉 $DAYS_LEFT days left until Lunar New Year 🧧/" README.md
-
+        if [ "$is_lunar_new_year" = "true" ]; then
+          sed -i "s/## 🎉 [0-9]\+ days left until Lunar New Year/# 🎉 HAPPY LUNAR NEW YEAR 🎆/" README.md
+        else
+          sed -i "s/## 🎉 [0-9]\+ days left until Lunar New Year/## 🎉 $DAYS_LEFT days left until Lunar New Year/" README.md
+        fi
     - name: Commit countdown update
       run: |
         git config --global user.name "github-actions[bot]"
