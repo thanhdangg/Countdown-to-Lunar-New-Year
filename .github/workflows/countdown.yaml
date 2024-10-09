@@ -18,7 +18,7 @@ jobs:
         TODAY=$(date +%s)
         LUNAR_NEW_YEAR_DATE=$(date -d "2025-01-29" +%s)  
         SECONDS_LEFT=$(( LUNAR_NEW_YEAR_DATE - TODAY ))
-        DAYS_LEFT=$(( SECONDS_LEFT / 86400 ))
+        DAYS_LEFT=$(( SECONDS_LEFT / 86400 ) + 1)
 
         # if today is Lunar New Year
         if [ $SECONDS_LEFT -lt 86400 ] && [ $SECONDS_LEFT -ge 0 ]; then
@@ -40,5 +40,5 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add README.md
-        git commit -m "Update countdown: $DAYS_LEFT days left until Tet Nguyen Dan"
+        git commit -m "Update countdown: $DAYS_LEFT days left until Lunar New Year"
         git push
