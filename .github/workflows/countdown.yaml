@@ -18,7 +18,7 @@ jobs:
         TODAY=$(date +%s)
         LUNAR_NEW_YEAR_DATE=$(date -d "2025-01-29" +%s)  
         SECONDS_LEFT=$(( LUNAR_NEW_YEAR_DATE - TODAY ))
-        DAYS_LEFT=$(( SECONDS_LEFT / 86400 ) + 1)
+        DAYS_LEFT=$(( SECONDS_LEFT / 86400 ))
 
         # if today is Lunar New Year
         if [ $SECONDS_LEFT -lt 86400 ] && [ $SECONDS_LEFT -ge 0 ]; then
