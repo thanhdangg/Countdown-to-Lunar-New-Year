@@ -16,7 +16,7 @@ jobs:
       id: countdown
       run: |
         TODAY=$(date +%s)
-        LUNAR_NEW_YEAR_DATE=$(date -d "2025-01-29" +%s)  
+        LUNAR_NEW_YEAR_DATE=$(date -d "2025-02-17" +%s)  
         SECONDS_LEFT=$(( LUNAR_NEW_YEAR_DATE - TODAY ))
         DAYS_LEFT=$(( SECONDS_LEFT / 86400 ))
 
