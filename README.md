@@ -1,3 +1,3 @@
 # Countdown to Lunar New Year 🎆🧧
 
-## 🎉 373 days left until Lunar New Year
+## 🎉 372 days left until Lunar New Year
